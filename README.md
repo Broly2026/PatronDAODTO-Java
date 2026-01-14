@@ -10,7 +10,7 @@ Ejercicio práctico de implementación del patrón DAO/DTO en 5 versiones evolut
 - **PatronDAODTO04Composicion** - Versión 4: Composición sobre herencia
 - **PatronDAODTO05Handler** - Versión 5: Patrón Handler (final)
 
-## ✅ Implementaciones Completadas
+ Implementaciones Completadas
 
 ### 1. findById en AlumnoDAO
 Implementado en todas las versiones (1-5)
@@ -20,21 +20,21 @@ Implementado en todas las versiones (1-5)
 - `findByName(String name)`
 - `create(Persona entidad)`
 
-## 🛠️ Tecnologías
+##  Tecnologías
 
 - Java 21
 - JDBC
 - MySQL
 - Maven
 
-## 📝 Notas
+##  Notas
 
 Cada versión mejora progresivamente el diseño, desde código duplicado hasta 
 el patrón Handler que proporciona máxima flexibilidad y reutilización.
 
 ## 👨‍🎓 Autor
 
-[Pedrp Álvarez] - Ejercicio de Persistencia de Datos
+[Pedro Álvarez] - Ejercicio de Persistencia de Datos
 ```
 
 ********* Hay más métodos resueltos, obviar.
