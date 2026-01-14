@@ -1,0 +1,69 @@
+package modelo.ImplDAO;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import mapper.PersonaMapper;
+import modelo.AbstractDAO.PersonaDAO;
+import modelo.Entity.Persona;
+import modelo.acceso.AccessJdbc;
+
+public class PersonaDAOJdbc extends GenericDAOJDBC implements PersonaDAO {
+
+	private AccessJdbc accessJdbc;
+
+	public PersonaDAOJdbc(AccessJdbc accessJdbc) {
+		super(accessJdbc);
+		this.accessJdbc = accessJdbc;
+	}
+
+	/// rellenamos create, inserta una nueva persona
+	/// usa getAccessJdbc() heredado para acceder a executeUpdate
+	@Override
+	public void create(Persona entidad) {
+		// TODO Auto-generated method stub
+		String query = "insert into persona (id, nombre, apellidos) values ("
+				+ entidad.getId() + ", "
+				+ "'" + entidad.getNombre() + ", "
+				+ "'" + entidad.getApellidos() + "')";
+		
+		int filasAfectadas = getAccessJdbc().executeUpdate(query);
+		
+		if (filasAfectadas > 0) {
+			System.out.println("Persona creada");
+		} else {
+			System.out.println("Eror");
+		}
+	}
+
+	
+	@Override
+	public Collection<Persona> findAll() {
+		ResultSet conjuntoResultados = accessJdbc.execute("SELECT * FROM persona");
+		Collection<Persona> personas = new ArrayList<>();
+		try {
+			while (conjuntoResultados.next()) {
+				personas.add(new PersonaMapper().map(conjuntoResultados));
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return personas;
+	}
+
+	@Override
+	public Persona findById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Persona findByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

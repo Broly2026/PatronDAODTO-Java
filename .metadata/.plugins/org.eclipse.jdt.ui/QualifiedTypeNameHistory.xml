@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.nio.file.OpenOption"/>
+    <fullyQualifiedTypeName name="java.security.cert.PKIXRevocationChecker.Option"/>
+    <fullyQualifiedTypeName name="handler.OptionalHandler"/>
+    <fullyQualifiedTypeName name="modelo.Entity.Alumno"/>
+    <fullyQualifiedTypeName name="mapper.AlumnoMapper"/>
+    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="modelo.acceso.AccessJdbc"/>
+    <fullyQualifiedTypeName name="modelo.ImplDAO.GenericDAOJDBC"/>
+    <fullyQualifiedTypeName name="java.util.Collection"/>
+    <fullyQualifiedTypeName name="modelo.ImplDAO.GenericComponentDAOJDBC"/>
+    <fullyQualifiedTypeName name="handler.CollectionHandler"/>
+    <fullyQualifiedTypeName name="modelo.Entity.Persona"/>
+    <fullyQualifiedTypeName name="mapper.PersonaMapper"/>
+</qualifiedTypeNameHistroy>

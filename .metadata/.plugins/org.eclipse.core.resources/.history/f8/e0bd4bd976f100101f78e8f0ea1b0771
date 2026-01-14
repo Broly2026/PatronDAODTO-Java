@@ -1,0 +1,87 @@
+package modelo.ImplDAO;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import mapper.PersonaMapper;
+import modelo.AbstractDAO.PersonaDAO;
+import modelo.Entity.Persona;
+import modelo.acceso.AccessJdbc;
+
+public class PersonaDAOJdbc implements PersonaDAO {
+
+	private AccessJdbc accessJdbc;
+
+	public PersonaDAOJdbc(AccessJdbc accessJdbc) {
+		super();
+		this.accessJdbc = accessJdbc;
+	}
+
+	@Override
+	public void create(Persona entidad) {
+		// TODO Auto-generated method stub
+		//1-> construir la query insert
+		String query = "insert into persona (id, nombre, apellidos) values ("
+				+ entidad.getId() + ", "
+				+ "'" + entidad.getNombre() + "', "
+				+ "'" + entidad.getApellidos() + "')";
+		
+		// ejecutar la query
+		int filasAfectadas = accessJdbc.executeUpdate(query);
+		
+		//3-> verificar si se insertó correctamente
+		if (filasAfectadas > 0) {
+			System.out.println("Persona creada");
+		} else {
+			System.out.println("Error");
+
+		}
+	}
+
+	@Override
+	public Collection<Persona> findAll() {
+		ResultSet conjuntoResultados = accessJdbc.execute("SELECT * FROM persona");
+		Collection<Persona> personas = new ArrayList<>();
+		try {
+			while (conjuntoResultados.next()) {
+				personas.add(new PersonaMapper().map(conjuntoResultados));
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return personas;
+	}
+
+	@Override
+	public Persona findById(Integer name) {
+		// TODO Auto-generated method stub
+		//1 -> construir la query sql
+		String query = "select * from persona where nombre like '%" + name + ""; // para queno haya coincidencias
+		//2-> ejecutR la query
+		ResultSet conjuntoResultados = accessJdbc.execute(query);
+		//3-> crear el mapper
+		PersonaMapper personaMapper = new PersonaMapper();
+		//4-> intentar leer el resultado
+		try {
+			if (conjuntoResultados.next()) {
+				return personaMapper.map(conjuntoResultados);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Persona findByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

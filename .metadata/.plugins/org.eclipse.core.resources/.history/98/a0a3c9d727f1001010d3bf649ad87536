@@ -1,0 +1,73 @@
+package modelo.ImplDAO;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+
+import mapper.AlumnoMapper;
+import modelo.AbstractDAO.AlumnoDAO;
+import modelo.Entity.Alumno;
+import modelo.acceso.AccessJdbc;
+
+public class AlumnoDAOJDBC implements AlumnoDAO {
+	private AccessJdbc accessJdbc;
+
+	public AlumnoDAOJDBC(AccessJdbc accessJdbc) {
+		this.accessJdbc = accessJdbc;
+	}
+
+	@Override
+	public void create(Alumno entidad) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/////////////////////////////////////////////////////////////////////////
+	/// Problemon
+	///
+	 /**
+	  * Guay porque funciona. mal porque rompemos DRY al tener que implementar, casi lo mismo,
+	  * en todos los DAOS solucion en DRY DAO ALumno
+	*/
+
+	@Override
+	public Collection<Alumno> findAll() {
+		ResultSet conjuntoResultados = accessJdbc.execute("SELECT * FROM alumnos");
+		Collection<Alumno> alumnos = new ArrayList<>();
+		AlumnoMapper alumnoMapper = new AlumnoMapper();
+		try {
+			while (conjuntoResultados.next()) {
+				alumnos.add(alumnoMapper.map(conjuntoResultados));
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return alumnos;
+	}
+
+	@Override
+	public Optional<Alumno> findById(String id) {
+		// paso 1 -> construir la query 
+		// necesitamos buscar en la tabla 'alumnos' donde la columna 'Matricula' coincida
+		String query = "SELECT * FROM alumnos WHERE Matricula like '" + id + "'";
+		// paso 2: ejecutar la query y obtener el Result
+		ResultSet conjuntoResultados = accessJdbc.execute(query);
+		// PASO 3: CREAR EL MAPPER QUE CONVERTIRÁ RESULTSET A ALUMNO
+		AlumnoMapper alumnoMapper = new AlumnoMapper();
+		// PASO 4: INTENTAR LEER EL PRIMER Y ÚNICO RESULTADO
+		try {
+			if(conjuntoResultados.next()) {
+				// SI HAY RESULTADO, MAPEARLO Y RETORNARLO ENVUELTO EN OPTIONAL
+				return Optional.ofNullable(alumnoMapper.map(conjuntoResultados));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// PASO 5: SI NO SE ENCONTRÓ NADA, RETORNAR OPTIONAL VACÍO
+		return Optional.empty();
+	}
+
+}
